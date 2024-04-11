@@ -1,0 +1,10 @@
+﻿
+
+@model IQueryable<Product>
+
+<h1>Products</h1>
+
+@foreach (Product p in Model)
+{
+    <h3>@p.name</h3>
+}

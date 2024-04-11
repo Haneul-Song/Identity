@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@model IQueryable<ProductCategory>
+
+<h1>ProductCategory</h1>
+
+@foreach (ProductCategory pc in Model)
+{
+    <h3>@pc.product_ID</h3>
+}
