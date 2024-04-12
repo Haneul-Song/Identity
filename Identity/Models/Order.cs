@@ -7,6 +7,8 @@ namespace Identity.Models
     {
         [Key]
         public int transaction_ID { get; set; }
+        public ICollection<CartLine> Lines { get; set; }
+            = new List<CartLine>();
 
         [ForeignKey("customer_ID")]
         public string? customer_ID { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Identity.Models;
+using Identity.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,10 @@ namespace Identity.Controllers
             userManager = userMgr;
             _repo = temp;
         }
-
+        public IActionResult Home()
+        {
+            return View();
+        }
         public IActionResult Product()
         {
             var productData = _repo.Products;
@@ -62,14 +66,36 @@ namespace Identity.Controllers
         {
             return View();
         }
-        [Authorize]
+        // [Authorize]
         //[Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Index()
-        {
-            AppUser user = await userManager.GetUserAsync(HttpContext.User);
-            string message = "Hello " + user.UserName;
-            return View((object)message);
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    AppUser user = await userManager.GetUserAsync(HttpContext.User);
+        //    //  string message = "Hello " + user.UserName;
+        //    // return View((object)message);
+        //    return View("Home");
+        //}
+
+        public ViewResult Index(string? category, int productPage = 1)
+           => View(new ProductsListViewModel
+           {
+               Products = _repo.Products
+                    .Where(p => category == null
+                        || p.Category == category)
+                   .OrderBy(p => p.ProductID)
+                   .Skip((productPage - 1) * PageSize)
+                   .Take(PageSize),
+               PagingInfo = new PagingInfo
+               {
+                   CurrentPage = productPage,
+                   ItemsPerPage = PageSize,
+                   TotalItems = category == null
+                        ? _repo.Products.Count()
+                        : _repo.Products.Where(e =>
+                            e.Category == category).Count()
+               },
+               CurrentCategory = category
+           });
 
         public async Task<IActionResult> Privacy()
         {
