@@ -36,6 +36,7 @@ builder.Services.AddAuthorization(opts =>
 
 
 
+
 //builder.Services.AddAuthorization(options =>
 //{
 //    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
@@ -107,3 +108,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
