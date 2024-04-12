@@ -21,15 +21,19 @@
                         <p class="card-text">
                             <a asp-controller="Product" asp-action="Item" asp-route-id="@item.product_ID">@item.name</a> - $@Html.DisplayFor(modelItem => item.price)
                         </p>
+                       
                         <div class="d-flex justify-content-between align-items-center">
-                            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+
+                            <form method="post" asp-page="/Cart">
                                 <input type="hidden" name="productId" value="@item.product_ID" />
                                 <input type="hidden" name="quantity" value="1" />
                                 <!-- Correctly include the full URL as the returnUrl -->
                                 <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-                                <button type="button" class="btn btn-primary add-to-cart" data-product-id="@item.product_ID">Add to Cart</button>
+                                <button type="submit" class="btn-outline-success btn-sm float-endproduct_ID">Add to Cart</button>
                             </form>
+
                         </div>
+
                     </div>
                 </div>
             </div>
