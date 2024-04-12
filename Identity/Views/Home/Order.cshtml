@@ -88,6 +88,5 @@
         }
     </tbody>
 </table>
-<a asp-controller="Home" asp-action="Product" asp-route-pageNum="1">1</a>
-<a asp-controller="Home" asp-action="Product" asp-route-pageNum="2">2</a>
-<a asp-controller="Home" asp-action="Product" asp-route-pageNum="3">3</a>
+<div page-model="@Model.PaginationInfo" page-action="Order" page-classes-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group"></div>

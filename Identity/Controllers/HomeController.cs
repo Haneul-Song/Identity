@@ -42,7 +42,7 @@ namespace Identity.Controllers
 
         public IActionResult Order(int pageNum)
         {
-            int pageSize = 10;
+            int pageSize = 100;
 
             var blah = new OrdersListViewModel
             {
@@ -64,7 +64,7 @@ namespace Identity.Controllers
 
         public IActionResult Customer(int pageNum)
         {
-            int pageSize = 10;
+            int pageSize = 100;
 
             var blah = new CustomersListViewModel
             {
