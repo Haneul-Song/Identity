@@ -84,6 +84,30 @@ namespace Identity.Controllers
             return View(blah);
         }
 
+        public IActionResult Item(int pageNum, string productPrimaryColors)
+        {
+            int pageSize = 10;
+
+            var blah = new ProductsListViewModel
+            {
+                Products = _repo.Products
+                    .Where(x => x.primary_color == productPrimaryColors || productPrimaryColors == null)
+                    .OrderBy(x => x.name)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = productPrimaryColors == null ? _repo.Products.Count() : _repo.Products.Where(x => x.primary_color == productPrimaryColors).Count()
+                },
+                CurrentProductPrimaryColor = productPrimaryColors
+            };
+
+            return View(blah);
+        }
+
         public IActionResult LineItem()
         {
             var lineItemData = _repo.LineItems;

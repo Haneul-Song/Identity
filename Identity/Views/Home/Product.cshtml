@@ -63,19 +63,7 @@
     <tbody>
         @foreach (Product p in Model.Products)
         {
-            <tr>
-                <td>@p.product_ID</td>
-                <td>
-                    <img src="@p.img_link" alt="Product Image" style="width:150px; height:auto;">
-                </td>
-                <td>@p.name</td>
-                <td>@p.year</td>
-                <td>@p.num_parts</td>
-                <td>@p.price</td>          
-                <td>@p.primary_color</td>
-                <td>@p.secondary_color</td>
-                <td>@p.description</td>
-            </tr>
+            <partial name="ProductSummary" model ="p" />
         }
     </tbody>
 </table>

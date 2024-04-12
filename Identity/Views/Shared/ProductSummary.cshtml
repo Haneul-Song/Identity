@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+
+<tr>
+    <td>@Model.product_ID</td>
+    <td>
+        <img src="@Model.img_link" alt="Product Image" style="width:150px; height:auto;">
+    </td>
+    <td>@Model.name</td>
+    <td>@Model.year</td>
+    <td>@Model.num_parts</td>
+    <td>@Model.price</td>
+    <td>@Model.primary_color</td>
+    <td>@Model.secondary_color</td>
+    <td>@Model.description</td>
+</tr>
