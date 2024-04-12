@@ -1,13 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IQueryable<Customer>
 @{
+    ViewData["Title"] = "Order";
 }
-@model IQueryable<Customer>
+<style>
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: rgba(0,0,0,.05); /* Add a background color to odd rows */
+    }
 
-<h1>Customers</h1>
+    .table-striped > tbody > tr:nth-of-type(even) {
+        background-color: #fff; /* Add a background color to even rows */
+    }
 
-@foreach (Customer c in Model)
-{
-    <h3>@c.age</h3>
-}
+    .table-striped > tbody > tr > td,
+    .table-striped > tbody > tr > th {
+        border: 1px solid #dee2e6; /* Add border to table cells */
+    }
+
+    .table-striped > thead > tr > th {
+        border-bottom-width: 2px; /* Add border to table header */
+    }
+
+    .table-striped {
+        border-collapse: collapse; /* Collapse table borders */
+        width: 100%; /* Set table width to 100% */
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .full-width-table {
+        margin-left: -50px;
+        margin-right: 0;
+    }
+
+    .table {
+        width: auto;
+        margin-bottom: 0;
+    }
+
+    .prediction-cell {
+        background-color: #e0f2f1;
+    }
+
+</style>
+
+<h2>Customers</h2>
+<h5>Show all the Customers</h5>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Firs Name</th>
+            <th>Las Name</th>
+            <th>Birth Date</th>
+            <th>Country</th>
+            <th>Gender</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Customer c in Model)
+        {
+            <tr>
+                <td>@c.customer_ID</td>
+                <td>@c.first_name</td>
+                <td>@c.last_name</td>
+                <td>@(c.birth_date?.ToString("MM/dd/yyyy") ?? "N/A")</td> <!-- Safely format birth date -->
+                <td>@c.country_of_residence</td>
+                <td>@c.gender</td>
+                <td>@c.age</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
