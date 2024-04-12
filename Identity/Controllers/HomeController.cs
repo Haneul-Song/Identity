@@ -16,6 +16,10 @@ namespace Identity.Controllers
             _repo = temp;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult Product()
         {
             var productData = _repo.Products;
@@ -64,7 +68,7 @@ namespace Identity.Controllers
         }
         [Authorize]
         //[Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Login()
         {
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             string message = "Hello " + user.UserName;

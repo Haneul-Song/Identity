@@ -1,12 +1,15 @@
 ﻿using Identity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 
+
 namespace Identity.Controllers
 {
 
+    [Authorize(Roles = "Admin")]
 
     public class AdminController : Controller
     {
