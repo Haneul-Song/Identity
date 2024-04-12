@@ -43,6 +43,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="/">Login</a>
                         </li>
                         
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>                   
+
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Item">Shop</a>
@@ -53,15 +60,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                       
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Checkout">Checkout</a>
-                        </li>
-                        
+                        @if (User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Checkout">Checkout</a>
+                            </li>
+                        }
+
 
                         @if (User.IsInRole("Admin"))
-                        {                        
+                        {                             
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ProductRecommendation">ProductRecommendation</a>
                             </li>
@@ -95,9 +104,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">All User</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Create">Create User</a>
-                            </li>
+
                         }
                     </ul>
                 </div>
