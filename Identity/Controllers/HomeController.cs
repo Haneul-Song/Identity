@@ -18,7 +18,15 @@ namespace Identity.Controllers
             _repo = temp;
         }
 
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Product()
+
         public IActionResult Product(int pageNum)
+
         {
             int pageSize = 10;
 
@@ -140,7 +148,7 @@ namespace Identity.Controllers
         }
         [Authorize]
         //[Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Login()
         {
             AppUser user = await userManager.GetUserAsync(HttpContext.User);
             string message = "Hello " + user.UserName;
