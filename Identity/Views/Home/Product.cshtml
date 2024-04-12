@@ -1,7 +1,5 @@
-﻿@model IQueryable<Product>
-@{
-    ViewData["Title"] = "Product";
-}
+﻿@model ProductsListViewModel
+
 <style>
     .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: rgba(0,0,0,.05); /* Add a background color to odd rows */
@@ -63,21 +61,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Product p in Model)
+        @foreach (Product p in Model.Products)
         {
-            <tr>
-                <td>@p.product_ID</td>
-                <td>
-                    <img src="@p.img_link" alt="Product Image" style="width:150px; height:auto;">
-                </td>
-                <td>@p.name</td>
-                <td>@p.year</td>
-                <td>@p.num_parts</td>
-                <td>@p.price</td>          
-                <td>@p.primary_color</td>
-                <td>@p.secondary_color</td>
-                <td>@p.description</td>
-            </tr>
+            <partial name="ProductSummary" model ="p" />
         }
     </tbody>
 </table>
+
+<div page-model="@Model.PaginationInfo" page-action="Product" page-classes-enabled="true" page-class="btn" 
+    page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group"></div>

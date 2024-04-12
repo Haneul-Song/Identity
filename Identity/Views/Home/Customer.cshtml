@@ -1,4 +1,4 @@
-﻿@model IQueryable<Customer>
+﻿@model CustomersListViewModel
 @{
     ViewData["Title"] = "Order";
 }
@@ -60,7 +60,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Customer c in Model)
+        @foreach (Customer c in Model.Customers)
         {
             <tr>
                 <td>@c.customer_ID</td>
@@ -75,3 +75,5 @@
         }
     </tbody>
 </table>
+<div page-model="@Model.PaginationInfo" page-action="Customer" page-classes-enabled="true" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group"></div>

@@ -1,7 +1,9 @@
 ﻿using Identity.Models;
+using Identity.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Identity.Controllers
 {
@@ -16,32 +18,110 @@ namespace Identity.Controllers
             _repo = temp;
         }
 
+
         public IActionResult Index()
         {
             return View();
         }
         public IActionResult Product()
+
+        public IActionResult Product(int pageNum)
+
         {
-            var productData = _repo.Products;
-            return View(productData);
+            int pageSize = 10;
+
+            var blah = new ProductsListViewModel
+            {
+                Products = _repo.Products
+                    .OrderBy(x => x.product_ID)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _repo.Products.Count()
+                }
+            };
+
+            return View(blah);
         }
 
-        public IActionResult Order()
+        public IActionResult Order(int pageNum)
         {
-            var orderData = _repo.Orders;
-            return View(orderData);
+            int pageSize = 100;
+
+            var blah = new OrdersListViewModel
+            {
+                Orders = _repo.Orders
+                    .OrderBy(x => x.date)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _repo.Orders.Count()
+                }
+            };
+
+            return View(blah);
         }
 
-        public IActionResult Customer()
+        public IActionResult Customer(int pageNum)
         {
-            var customerData = _repo.Customers;
-            return View(customerData);
+            int pageSize = 100;
+
+            var blah = new CustomersListViewModel
+            {
+                Customers = _repo.Customers
+                    .OrderBy(x => x.customer_ID)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _repo.Customers.Count()
+                }
+            };
+
+            return View(blah);
         }
+
+        public IActionResult Item(int pageNum, string productPrimaryColors)
+        {
+            int pageSize = 10;
+
+            var blah = new ProductsListViewModel
+            {
+                Products = _repo.Products
+                    .Where(x => x.primary_color == productPrimaryColors || productPrimaryColors == null)
+                    .OrderBy(x => x.name)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PaginationInfo = new PaginationInfo
+                {
+                    CurrentPage = pageNum,
+                    ItemsPerPage = pageSize,
+                    TotalItems = productPrimaryColors == null ? _repo.Products.Count() : _repo.Products.Where(x => x.primary_color == productPrimaryColors).Count()
+                },
+                CurrentProductPrimaryColor = productPrimaryColors
+            };
+
+            return View(blah);
+        }
+
         public IActionResult LineItem()
         {
             var lineItemData = _repo.LineItems;
             return View(lineItemData);
         }
+
         public IActionResult Category()
         {
             var categoryData = _repo.Categories;
