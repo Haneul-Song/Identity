@@ -1,7 +1,5 @@
-﻿@model IQueryable<Product>
-@{
-    ViewData["Title"] = "Product";
-}
+﻿@model ProductsListViewModel
+
 <style>
     .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: rgba(0,0,0,.05); /* Add a background color to odd rows */
@@ -63,7 +61,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Product p in Model)
+        @foreach (Product p in Model.Products)
         {
             <tr>
                 <td>@p.product_ID</td>
@@ -81,3 +79,5 @@
         }
     </tbody>
 </table>
+
+<div page-modle="@Model.PaginationInfo" page-action="Product"></div>

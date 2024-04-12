@@ -1,4 +1,4 @@
-﻿@model IQueryable<Order>
+﻿@model OrdersListViewModel
 @{
     ViewData["Title"] = "Order";
 }
@@ -67,7 +67,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Order o in Model)
+        @foreach (Order o in Model.Orders)
         {
             <tr>
                 <td>@o.transaction_ID</td>
@@ -88,3 +88,6 @@
         }
     </tbody>
 </table>
+<a asp-controller="Home" asp-action="Product" asp-route-pageNum="1">1</a>
+<a asp-controller="Home" asp-action="Product" asp-route-pageNum="2">2</a>
+<a asp-controller="Home" asp-action="Product" asp-route-pageNum="3">3</a>
