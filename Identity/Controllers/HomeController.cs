@@ -23,7 +23,12 @@ namespace Identity.Controllers
         {
             return View();
         }
-        public IActionResult Product()
+        //public IActionResult Product();
+
+        public IActionResult About()
+        {
+            return View();
+        }
 
         public IActionResult Product(int pageNum)
 
@@ -48,6 +53,7 @@ namespace Identity.Controllers
             return View(blah);
         }
 
+        [Authorize(Roles ="Admin")]
         public IActionResult Order(int pageNum)
         {
             int pageSize = 100;
@@ -146,7 +152,7 @@ namespace Identity.Controllers
         {
             return View();
         }
-        [Authorize]
+        //[Authorize]
         //[Authorize(Roles = "Manager")]
         public async Task<IActionResult> Login()
         {

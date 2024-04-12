@@ -4,12 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
+//using Microsoft.AspNetCore.Identity.UserManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlite(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromHours(10));
+
+//builder.Services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+//                .AddEntityFrameworkStores<AppIdentityDbContext>()
+//                .AddDefaultTokenProviders()
+//                .AddDefaultUI();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -26,6 +33,14 @@ builder.Services.AddAuthorization(opts =>
         policy.RequireClaim("Coding-Skill", "ASP.NET Core MVC");
     });
 });
+
+
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+//    options.AddPolicy("Member", policy => policy.RequireRole("Member"));
+//});
 
 builder.Services.AddTransient<IAuthorizationHandler, AllowUsersHandler>();
 builder.Services.AddAuthorization(opts =>
@@ -66,6 +81,8 @@ builder.Services.AddDbContext<ProductContext>(options =>
 });
 
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+
+
 
 var app = builder.Build();
 
