@@ -77,7 +77,7 @@ namespace Identity.Controllers
         //    return View(predictions);
         //}
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult FraudPrediction()
         {
             var records = _repo.Orders
@@ -155,10 +155,11 @@ namespace Identity.Controllers
         {
             return View(userManager.Users);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
@@ -198,7 +199,7 @@ namespace Identity.Controllers
             }
             return View(user);
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(string id)
         {
             AppUser user = await userManager.FindByIdAsync(id);
@@ -209,6 +210,7 @@ namespace Identity.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(string id, string email, string password)
         {
             AppUser user = await userManager.FindByIdAsync(id);
