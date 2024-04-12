@@ -25,4 +25,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\img\Screenshot 2024-04-11 170811.png" />
+  </ItemGroup>
+
 </Project>
